@@ -1,0 +1,98 @@
+{
+  "scripts": {
+    "build": "npm run build:prod",
+    "build:prod": "NODE_ENV=production rollup -c",
+    "build:dev": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "preversion": "npm test",
+    "postversion": "npm run build",
+    "test": "standard && size-limit && jest",
+    "test:coverage": "jest --coverage --verbose",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "@hyperapp/html": "1.0.1",
+    "@hyperapp/logger": "0.4.1",
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.2.1",
+    "babel-jest": "22.1.0",
+    "babel-plugin-external-helpers": "6.22.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "hyperapp": "1.0.2",
+    "jest": "22.1.4",
+    "rollup": "0.55.3",
+    "rollup-plugin-babel": "3.0.3",
+    "rollup-plugin-commonjs": "8.3.0",
+    "rollup-plugin-node-resolve": "3.0.2",
+    "rollup-plugin-uglify": "3.0.0",
+    "size-limit": "0.14.0",
+    "standard": "10.0.3"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "envs": [
+      "jest"
+    ]
+  },
+  "size-limit": [
+    {
+      "path": "src/index.js",
+      "limit": "10 KB"
+    }
+  ],
+  "jest": {
+    "coverageDirectory": "<rootDir>/coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 95,
+        "functions": 95,
+        "lines": 95
+      }
+    }
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false,
+          "targets": {
+            "browsers": [
+              "last 2 versions"
+            ]
+          }
+        }
+      ]
+    ],
+    "env": {
+      "production": {
+        "plugins": [
+          "external-helpers",
+          "transform-object-rest-spread"
+        ]
+      },
+      "development": {
+        "plugins": [
+          "external-helpers",
+          "transform-object-rest-spread"
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "node": "current"
+              }
+            }
+          ]
+        ]
+      }
+    }
+  },
+  "name": "hyper-rollup",
+  "version": "0.0.1",
+  "license": "MIT"
+}
